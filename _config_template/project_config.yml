@@ -1,0 +1,326 @@
+# ==============================================================================
+# UNICEF Analytics - Project Configuration Template
+# ==============================================================================
+# Copy this file to your project root and customize for your specific project
+# Filename: config.yml or project_config.yml
+# ==============================================================================
+
+# ==============================================================================
+# PROJECT METADATA
+# ==============================================================================
+project:
+  name: "UNICEF Analytics Project"
+  short_name: "unicef-project"
+  description: "Analytics project for UNICEF data analysis"
+  version: "1.0.0"
+  
+  # Project team
+  author: "Your Name"
+  organization: "UNICEF"
+  division: "Data and Analytics"
+  contact: "your.email@unicef.org"
+  
+  # Dates
+  start_date: "2025-01-01"
+  last_updated: "2025-10-09"
+
+# ==============================================================================
+# DIRECTORY STRUCTURE
+# ==============================================================================
+paths:
+  # Root directories
+  root: "."
+  data: "01_data_prep"
+  analysis: "02_analysis"
+  outputs: "03_outputs"
+  docs: "04_documentation"
+  
+  # Data subdirectories
+  data_raw: "01_data_prep/011_raw_data"
+  data_scripts: "01_data_prep/012_codes"
+  data_processed: "01_data_prep/013_processed_data"
+  data_cache: "01_data_prep/014_cache"
+  
+  # Analysis subdirectories
+  analysis_scripts: "02_analysis/021_codes"
+  analysis_results: "02_analysis/022_results"
+  analysis_temp: "02_analysis/023_temp"
+  
+  # Output subdirectories
+  outputs_reports: "03_outputs/031_reports"
+  outputs_figures: "03_outputs/032_figures"
+  outputs_tables: "03_outputs/033_tables"
+  outputs_data: "03_outputs/034_data_exports"
+  
+  # Documentation
+  docs_notebooks: "04_documentation/041_notebooks"
+  docs_references: "04_documentation/042_references"
+
+# ==============================================================================
+# DATA SOURCES
+# ==============================================================================
+data_sources:
+  # API endpoints
+  apis:
+    world_bank:
+      base_url: "https://api.worldbank.org/v2"
+      indicator_endpoint: "indicator"
+      country_endpoint: "country"
+    
+    unicef_data:
+      base_url: "https://data.unicef.org/api"
+      
+    ilo_stat:
+      base_url: "https://www.ilo.org/ilostat-files/WEB_bulk_download"
+  
+  # File sources
+  files:
+    mics:
+      path: "01_data_prep/011_raw_data/MICS"
+      pattern: "*.dta"
+    
+    dhs:
+      path: "01_data_prep/011_raw_data/DHS"
+      pattern: "*.DTA"
+    
+    administrative:
+      path: "01_data_prep/011_raw_data/admin_data"
+      pattern: "*.csv"
+
+# ==============================================================================
+# PROCESSING PARAMETERS
+# ==============================================================================
+parameters:
+  # Date range
+  analysis_period:
+    start_year: 2015
+    end_year: 2024
+  
+  # Geographic scope
+  geography:
+    regions:
+      - "Sub-Saharan Africa"
+      - "South Asia"
+      - "East Asia and Pacific"
+      - "Latin America and Caribbean"
+      - "Middle East and North Africa"
+      - "Europe and Central Asia"
+    
+    # Specific countries (ISO3 codes)
+    countries:
+      - "AFG"
+      - "BGD"
+      - "BRA"
+      - "ETH"
+      - "IND"
+      - "KEN"
+      - "NGA"
+      - "PAK"
+      - "ZAF"
+    
+    # Focus countries
+    focus_countries:
+      - "ETH"
+      - "KEN"
+      - "NGA"
+  
+  # Indicators
+  indicators:
+    education:
+      - "SE.PRM.NENR"  # Primary enrollment rate
+      - "SE.SEC.NENR"  # Secondary enrollment rate
+      - "LO.PISA.REA"  # PISA reading scores
+    
+    health:
+      - "SH.STA.MMRT"  # Maternal mortality ratio
+      - "SH.DYN.MORT"  # Under-5 mortality rate
+      - "SH.IMM.IDPT"  # DPT immunization rate
+    
+    nutrition:
+      - "SH.STA.STNT.ZS"  # Stunting prevalence
+      - "SH.STA.WAST.ZS"  # Wasting prevalence
+  
+  # Statistical parameters
+  statistics:
+    confidence_level: 0.95
+    min_sample_size: 30
+    outlier_threshold: 3  # Standard deviations
+    missing_threshold: 0.2  # Maximum proportion of missing data
+
+# ==============================================================================
+# OUTPUT SETTINGS
+# ==============================================================================
+output:
+  # Report formats
+  formats:
+    - "html"
+    - "pdf"
+    - "docx"
+  
+  # Figure settings
+  figures:
+    width: 10
+    height: 6
+    dpi: 300
+    format: "png"
+    theme: "minimal"
+    
+    # Color palettes
+    colors:
+      primary: "#1CABE2"  # UNICEF blue
+      secondary: "#00833D"  # UNICEF green
+      accent: "#FFC20E"  # UNICEF yellow
+      palette: "viridis"
+  
+  # Table settings
+  tables:
+    format: "latex"
+    digits: 2
+    include_ci: true
+    star_levels: [0.05, 0.01, 0.001]
+  
+  # Data export settings
+  exports:
+    format: "csv"
+    encoding: "UTF-8"
+    delimiter: ","
+    include_metadata: true
+
+# ==============================================================================
+# PROCESSING OPTIONS
+# ==============================================================================
+options:
+  # Caching
+  cache:
+    enabled: true
+    location: "01_data_prep/014_cache"
+    format: "rds"  # or "parquet", "feather"
+  
+  # Parallel processing
+  parallel:
+    enabled: true
+    cores: 4  # Number of cores to use (or "auto")
+  
+  # Logging
+  logging:
+    enabled: true
+    level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+    file: "logs/project.log"
+    console: true
+  
+  # Reproducibility
+  reproducibility:
+    seed: 12345
+    session_info: true
+    track_packages: true
+
+# ==============================================================================
+# QUALITY CONTROL
+# ==============================================================================
+quality:
+  # Data validation
+  validation:
+    check_duplicates: true
+    check_missing: true
+    check_outliers: true
+    check_consistency: true
+  
+  # Unit testing
+  testing:
+    enabled: true
+    coverage_threshold: 0.80
+    test_dir: "tests"
+  
+  # Code quality
+  code_quality:
+    lint_r: true
+    lint_python: true
+    style_check: true
+
+# ==============================================================================
+# EXTERNAL RESOURCES
+# ==============================================================================
+resources:
+  # Reference data
+  reference_files:
+    country_codes: "04_documentation/042_references/country_codes.csv"
+    indicator_metadata: "04_documentation/042_references/indicators.xlsx"
+    population_data: "04_documentation/042_references/population.csv"
+  
+  # Documentation links
+  documentation:
+    project_wiki: "https://github.com/your-org/project/wiki"
+    methodology: "04_documentation/methodology.md"
+    data_dictionary: "04_documentation/data_dictionary.xlsx"
+  
+  # External APIs (credentials stored separately)
+  credentials:
+    use_env_file: true
+    env_file: ".env"
+
+# ==============================================================================
+# WORKFLOW SETTINGS
+# ==============================================================================
+workflow:
+  # Pipeline stages
+  stages:
+    - name: "data_download"
+      script: "01_data_prep/012_codes/download_data.R"
+      enabled: true
+    
+    - name: "data_cleaning"
+      script: "01_data_prep/012_codes/clean_data.R"
+      enabled: true
+      depends_on: ["data_download"]
+    
+    - name: "data_processing"
+      script: "01_data_prep/012_codes/process_data.R"
+      enabled: true
+      depends_on: ["data_cleaning"]
+    
+    - name: "analysis"
+      script: "02_analysis/021_codes/run_analysis.R"
+      enabled: true
+      depends_on: ["data_processing"]
+    
+    - name: "reporting"
+      script: "03_outputs/generate_report.Rmd"
+      enabled: true
+      depends_on: ["analysis"]
+  
+  # Execution options
+  execution:
+    stop_on_error: true
+    save_intermediate: true
+    cleanup_temp: false
+
+# ==============================================================================
+# ENVIRONMENT VARIABLES
+# ==============================================================================
+# Note: Sensitive information should be stored in .env file, not here
+environment:
+  R_VERSION: "4.3.0"
+  PYTHON_VERSION: "3.11"
+  
+  # R-specific
+  R_LIBS_USER: "~/R/library"
+  R_MAX_VSIZE: "16Gb"
+  
+  # Python-specific
+  PYTHONPATH: "."
+  VIRTUAL_ENV: "venv"
+
+# ==============================================================================
+# NOTES
+# ==============================================================================
+# Usage:
+#   R: config <- yaml::read_yaml("config.yml")
+#   Python: import yaml; config = yaml.safe_load(open("config.yml"))
+#
+# Best practices:
+#   - Store sensitive data in .env file
+#   - Use relative paths from project root
+#   - Document all custom parameters
+#   - Version control this file
+#   - Update last_updated date when modified
+# ==============================================================================

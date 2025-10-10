@@ -1,0 +1,67 @@
+# ==============================================================================
+# UNICEF Analytics - Universal User Configuration
+# ==============================================================================
+# This is a MINIMAL, UNIVERSAL config that works across ALL repos
+# 
+# Location (choose one):
+#   Windows: C:/Users/YourName/.config/unicef_analytics/user_config.yml
+#   macOS:   ~/.config/unicef_analytics/user_config.yml
+#   Linux:   ~/.config/unicef_analytics/user_config.yml
+#
+# Set once, use everywhere!
+# ==============================================================================
+
+# ==============================================================================
+# CORE DIRECTORIES (Required)
+# ==============================================================================
+# These are the ONLY paths you need to configure
+
+paths:
+  # GitHub root directory (parent of all your cloned repos)
+  github_dir: "C:/GitHub"
+  # github_dir: "/Users/username/GitHub"    # macOS
+  # github_dir: "/home/username/GitHub"     # Linux
+  
+  # UNICEF Teams/OneDrive directory (if applicable)
+  teams_dir: "C:/Users/username/OneDrive - UNICEF"
+  # teams_dir: "/Users/username/Library/CloudStorage/OneDrive-UNICEF"  # macOS
+  
+  # Shared data location (network drive or local folder)
+  data_dir: "Z:/SharedData"
+  # data_dir: "/Volumes/SharedData"         # macOS network
+  # data_dir: "/mnt/shared_data"            # Linux mount
+
+# ==============================================================================
+# PERSONAL PREFERENCES (Optional)
+# ==============================================================================
+
+preferences:
+  # Parallel processing
+  default_cores: 4              # Number of CPU cores to use
+  max_memory_gb: 8              # Maximum RAM in GB
+  
+  # Default output formats
+  figure_format: "png"          # png, pdf, svg
+  table_format: "csv"           # csv, xlsx
+  
+  # Regional preferences
+  default_language: "en"        # en, es, fr
+  date_format: "%Y-%m-%d"       # ISO format
+
+# ==============================================================================
+# NOTES
+# ==============================================================================
+#
+# What's AUTO-DETECTED (no configuration needed):
+#   - Project root directory (using here::here())
+#   - VS Code workspace folder
+#   - Standard project subdirectories (01_data_prep/, 02_analysis/, etc.)
+#   - All project-specific paths
+#
+# For credentials (per-project), create .env file:
+#   API_KEY=your_key_here
+#   DB_PASSWORD=your_password
+#
+# For project-specific settings, create project_config.yml (optional)
+#
+# ==============================================================================

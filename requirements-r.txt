@@ -1,0 +1,173 @@
+# ==============================================================================
+# R Package Requirements - UNICEF Analytics Environment
+# ==============================================================================
+# Installation: Rscript install-r-packages.R
+# Or in R: install.packages(readLines("requirements-r.txt"))
+# ==============================================================================
+
+# ============================================================================
+# CORE DATA MANIPULATION
+# ============================================================================
+tidyverse          # Meta-package: dplyr, ggplot2, tidyr, readr, purrr, tibble, stringr, forcats
+dplyr              # Data manipulation
+tidyr              # Data tidying
+data.table         # Fast data manipulation
+purrr              # Functional programming
+magrittr           # Pipe operators
+rlang              # Low-level R language API
+
+# ============================================================================
+# DATA IMPORT/EXPORT
+# ============================================================================
+readr              # Fast CSV reading
+readxl             # Excel file import
+openxlsx           # Excel file creation and editing
+writexl            # Fast Excel writing
+haven              # SPSS, Stata, SAS import
+foreign            # Legacy foreign data import
+xlsx               # Java-based Excel handling
+rio                # Universal data import/export
+
+# ============================================================================
+# STRING & TEXT OPERATIONS
+# ============================================================================
+stringr            # String manipulation
+glue               # String interpolation
+janitor            # Data cleaning
+utf8               # Unicode text handling
+
+# ============================================================================
+# DATE & TIME
+# ============================================================================
+lubridate          # Date-time manipulation
+zoo                # Time series operations
+
+# ============================================================================
+# STATISTICAL ANALYSIS
+# ============================================================================
+summarytools       # Summary statistics
+srvyr              # Survey-weighted analysis (dplyr-compatible)
+survey             # Complex survey analysis
+weights            # Weighted statistics
+Hmisc              # Miscellaneous statistical functions
+psych              # Psychological research tools (but useful generally)
+
+# ============================================================================
+# EXTERNAL DATA SOURCES & APIS
+# ============================================================================
+Rilostat           # ILO statistics
+wbstats            # World Bank data
+countrycode        # Country code conversion
+WDI                # World Development Indicators
+eurostat           # Eurostat data access
+OECD               # OECD data access
+
+# ============================================================================
+# YAML & CONFIGURATION
+# ============================================================================
+yaml               # YAML file handling
+config             # Configuration management
+here               # Path management
+
+# ============================================================================
+# VISUALIZATION
+# ============================================================================
+ggplot2            # Grammar of graphics plotting
+ggrepel            # Non-overlapping text labels
+cowplot            # Publication-ready plots
+patchwork          # Combining plots
+scales             # Scale functions for visualization
+viridis            # Color-blind friendly palettes
+wesanderson        # Wes Anderson color palettes
+RColorBrewer       # ColorBrewer palettes
+gridExtra          # Grid graphics extras
+ggcorrplot         # Correlation matrix visualization
+GGally             # ggplot2 extensions
+plotly             # Interactive plots
+
+# ============================================================================
+# COMPOSITE INDICATORS & INDICES
+# ============================================================================
+COINr              # Composite Indicator framework
+ggcorrplot         # Correlation visualizations
+
+# ============================================================================
+# REPORTING & DOCUMENTATION
+# ============================================================================
+knitr              # Dynamic report generation
+rmarkdown          # R Markdown documents
+pandoc             # Pandoc integration
+quarto             # Quarto publishing
+DT                 # Interactive data tables
+gt                 # Grammar of Tables
+flextable          # Flexible tables
+kableExtra         # Enhanced tables for knitr
+bookdown           # Authoring books and long documents
+pagedown           # Paged HTML documents
+sass               # CSS preprocessor
+
+# ============================================================================
+# NETWORK ANALYSIS
+# ============================================================================
+igraph             # Network analysis and visualization
+
+# ============================================================================
+# SPATIAL & GIS
+# ============================================================================
+sf                 # Simple Features for spatial data
+raster             # Raster data handling
+sp                 # Spatial data classes
+
+# ============================================================================
+# MODELING & MACHINE LEARNING
+# ============================================================================
+mgcv               # Generalized Additive Models
+lme4               # Mixed-effects models
+broom              # Tidy model outputs
+caret              # Machine learning framework
+randomForest       # Random forest models
+
+# ============================================================================
+# CODE QUALITY & DEVELOPMENT
+# ============================================================================
+devtools           # Package development tools
+usethis            # Workflow automation for packages
+testthat           # Unit testing
+lintr              # Static code analysis
+styler             # Code formatting
+roxygen2           # Documentation generation
+pkgdown            # Package websites
+
+# ============================================================================
+# UTILITIES
+# ============================================================================
+tools              # R package development tools
+httr               # HTTP requests
+jsonlite           # JSON parsing
+xml2               # XML parsing
+curl               # Modern HTTP client
+httr2              # Next generation httr
+rvest              # Web scraping
+cli                # Command-line interface styling
+progressr          # Progress bars
+logger             # Logging utility
+withr              # Temporary state changes
+
+# ============================================================================
+# UNICEF-SPECIFIC
+# ============================================================================
+# Note: Some packages may need to be installed from GitHub
+# devtools::install_github("username/package")
+
+# ============================================================================
+# ENHANCED R CONSOLE
+# ============================================================================
+# Install radian separately with: pip install -U radian
+languageserver     # R language server for VS Code
+
+# ==============================================================================
+# END OF REQUIREMENTS
+# ==============================================================================
+# Total: ~90 packages (including dependencies)
+# Installation time: 15-30 minutes depending on system
+# ==============================================================================

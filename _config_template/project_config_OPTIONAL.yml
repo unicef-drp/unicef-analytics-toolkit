@@ -1,0 +1,71 @@
+# ==============================================================================
+# Project Configuration (OPTIONAL)
+# ==============================================================================
+# This file is OPTIONAL - only create it if your project needs:
+#   - Specific API configurations
+#   - Project-specific parameters (countries, indicators)  
+#   - Complex workflow definitions
+#
+# Most projects can work with just:
+#   - user_config.yml (universal, in ~/.config/)
+#   - Auto-detection (via profile_SIMPLE.R)
+#   - .env file (for credentials)
+# ==============================================================================
+
+# ==============================================================================
+# PROJECT METADATA (Optional)
+# ==============================================================================
+
+project:
+  name: "My Project Name"
+  description: "Brief description"
+
+# ==============================================================================
+# DATA SOURCES (Only if using specific APIs)
+# ==============================================================================
+
+# Example: World Bank API
+# data_sources:
+#   world_bank:
+#     indicators:
+#       - "SP.POP.TOTL"      # Total population
+#       - "NY.GDP.PCAP.CD"   # GDP per capita
+#     
+# Example: UNICEF Data API  
+# unicef_data:
+#   indicators:
+#     - "CME_MRM0"           # Under-five mortality rate
+
+# ==============================================================================
+# GEOGRAPHIC SCOPE (Optional)
+# ==============================================================================
+
+# geography:
+#   countries:
+#     - "USA"
+#     - "GBR"
+#     - "JPN"
+#   regions:
+#     - "Sub-Saharan Africa"
+#     - "South Asia"
+
+# ==============================================================================
+# ANALYSIS PARAMETERS (Optional)
+# ==============================================================================
+
+# parameters:
+#   baseline_year: 2015
+#   target_year: 2030
+#   confidence_level: 0.95
+
+# ==============================================================================
+# NOTES
+# ==============================================================================
+#
+# This file is for PROJECT-SPECIFIC settings shared by the team.
+# Commit this file to Git.
+#
+# For PERSONAL settings (your paths), use ~/.config/unicef_analytics/user_config.yml
+# For CREDENTIALS, use .env file (NOT committed)
+#
+# ==============================================================================
