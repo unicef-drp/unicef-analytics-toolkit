@@ -27,6 +27,21 @@ user_config.yml
 .Renviron
 .Rprofile
 
+# ==============================================================================
+# PYTHON
+# ==============================================================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
 # Database files
 *.db
 *.sqlite
