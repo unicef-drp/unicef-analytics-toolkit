@@ -263,6 +263,17 @@ else
     print_success "Configuration file already exists"
 fi
 
+# Copy .gitignore template for security-first approach
+if [ ! -f ".gitignore" ]; then
+    if [ -f "_config_template/.gitignore" ]; then
+        echo ""
+        echo "[SECURITY] Copying secure .gitignore template..."
+        cp _config_template/.gitignore .gitignore
+        print_info "Whitelist .gitignore installed - protects sensitive data"
+        print_info "Read GITIGNORE-GUIDANCE.md for usage and customization"
+    fi
+fi
+
 echo ""
 
 # ==============================================================================
@@ -291,8 +302,14 @@ print_header "Installation Complete!"
 
 echo "Next steps:"
 echo "  1. Edit configuration: $CONFIG_FILE"
-echo "  2. Verify installation: make check"
-echo "  3. Read documentation: README.md"
+echo "  2. IMPORTANT: Read GITIGNORE-GUIDANCE.md for data security"
+echo "  3. Verify installation: make check"
+echo "  4. Read documentation: README.md"
+echo ""
+echo "SECURITY NOTICE:"
+echo "  A whitelist .gitignore has been installed to protect sensitive data."
+echo "  By default, ONLY code and documentation are tracked in git."
+echo "  Read GITIGNORE-GUIDANCE.md to understand how to customize safely."
 echo ""
 echo "Additional tools to install (optional):"
 echo "  - Pandoc:  https://pandoc.org/installing.html"

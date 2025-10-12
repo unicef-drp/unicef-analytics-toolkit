@@ -215,6 +215,17 @@ if not exist "%CONFIG_FILE%" (
     echo [OK] Configuration file already exists
 )
 
+REM Copy .gitignore template for security-first approach
+if not exist ".gitignore" (
+    if exist _config_template\.gitignore (
+        echo.
+        echo [SECURITY] Copying secure .gitignore template...
+        copy _config_template\.gitignore .gitignore
+        echo [INFO] Whitelist .gitignore installed - protects sensitive data
+        echo [INFO] Read GITIGNORE-GUIDANCE.md for usage and customization
+    )
+)
+
 echo.
 
 REM ==============================================================================
@@ -247,8 +258,14 @@ echo ===========================================================================
 echo.
 echo Next steps:
 echo   1. Edit configuration: %CONFIG_FILE%
-echo   2. Verify installation: make check
-echo   3. Read documentation: README.md
+echo   2. IMPORTANT: Read GITIGNORE-GUIDANCE.md for data security
+echo   3. Verify installation: make check
+echo   4. Read documentation: README.md
+echo.
+echo SECURITY NOTICE:
+echo   A whitelist .gitignore has been installed to protect sensitive data.
+echo   By default, ONLY code and documentation are tracked in git.
+echo   Read GITIGNORE-GUIDANCE.md to understand how to customize safely.
 echo.
 echo Additional tools to install (optional):
 echo   - Pandoc:  https://pandoc.org/installing.html

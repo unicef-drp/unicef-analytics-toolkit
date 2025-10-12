@@ -1,372 +1,742 @@
-# ==============================================================================
-# UNICEF Analytics - .gitignore Template
-# ==============================================================================
-# Comprehensive .gitignore for UNICEF data analytics projects
-# Languages: R, Python, Stata
-# Last Updated: 2025-10-09
-# ==============================================================================
+# ==============================================================================# ==============================================================================
 
-# ==============================================================================
-# SENSITIVE DATA - NEVER COMMIT
-# ==============================================================================
-# Configuration files with credentials
-.env
-.env.local
-.env.*.local
-credentials.yml
-secrets.yml
-api_keys.txt
-*_credentials.*
+# UNICEF Analytics Project - .gitignore (WHITELIST APPROACH)# UNICEF Analytics - .gitignore Template
+
+# ==============================================================================# ==============================================================================
+
+# SECURITY-FIRST PHILOSOPHY: Ignore everything by default, explicitly allow only# Comprehensive .gitignore for UNICEF data analytics projects
+
+# code and documentation. This protects sensitive UNICEF data (child welfare,# Languages: R, Python, Stata
+
+# population statistics, PII) from accidental commits.# Last Updated: 2025-10-09
+
+## ==============================================================================
+
+# WHY WHITELIST?
+
+# - Traditional .gitignore: Everything tracked UNLESS blacklisted (risky)# ==============================================================================
+
+# - Whitelist .gitignore: Nothing tracked UNLESS explicitly allowed (safe)# SENSITIVE DATA - NEVER COMMIT
+
+## ==============================================================================
+
+# UNICEF DATA SENSITIVITY:# Configuration files with credentials
+
+# - Child protection data.env
+
+# - Personally Identifiable Information (PII).env.local
+
+# - Multi-country surveys with varying data laws.env.*.local
+
+# - External collaborators with different security practicescredentials.yml
+
+#secrets.yml
+
+# CUSTOMIZATION: See GITIGNORE-GUIDANCE.md for examples and best practicesapi_keys.txt
+
+# ==============================================================================*_credentials.*
+
 *_secrets.*
-*.key
-*.pem
 
-# User-specific configuration
-user_config.yml
+# ==============================================================================*.key
+
+# STEP 1: IGNORE EVERYTHING BY DEFAULT*.pem
+
+# ==============================================================================
+
+# This is the foundation of the whitelist approach# User-specific configuration
+
+*user_config.yml
+
 **/user_config.yml
-.Renviron
-.Rprofile
+
+# ==============================================================================.Renviron
+
+# STEP 2: EXPLICITLY ALLOW - CODE FILES.Rprofile
 
 # ==============================================================================
-# PYTHON
-# ==============================================================================
-# Byte-compiled / optimized / DLL files
-__pycache__/
+
+# R Code# ==============================================================================
+
+!*.R# PYTHON
+
+!*.Rmd# ==============================================================================
+
+!*.qmd# Byte-compiled / optimized / DLL files
+
+!*.Rnw__pycache__/
+
 *.py[cod]
-*$py.class
-*.pyc
-.pytest_cache/
+
+# Python Code*$py.class
+
+!*.py*.pyc
+
+!*.ipynb.pytest_cache/
+
 .coverage
-htmlcov/
-*.egg-info/
-dist/
+
+# Stata Codehtmlcov/
+
+!*.do*.egg-info/
+
+!*.adodist/
+
 build/
 
-# Database files
+# SQL Scripts
+
+!*.sql# Database files
+
 *.db
-*.sqlite
-*.sqlite3
-*.sql
+
+# Shell Scripts*.sqlite
+
+!*.sh*.sqlite3
+
+!*.bat*.sql
+
+!*.ps1
 
 # ==============================================================================
-# DATA FILES - USUALLY TOO LARGE FOR GIT
-# ==============================================================================
-# Raw data
-01_data_prep/011_raw_data/**
-**/raw_data/**
+
+# JavaScript/TypeScript (for interactive visualizations)# DATA FILES - USUALLY TOO LARGE FOR GIT
+
+!*.js# ==============================================================================
+
+!*.ts# Raw data
+
+!*.jsx01_data_prep/011_raw_data/**
+
+!*.tsx**/raw_data/**
+
 **/rawData/**
-*.dta
-*.sav
-*.sas7bdat
+
+# CSS (for reports/dashboards)*.dta
+
+!*.css*.sav
+
+!*.scss*.sas7bdat
+
 *.xpt
 
-# Processed data (unless specifically needed)
-01_data_prep/013_processed_data/**
-**/processed_data/**
-**/processedData/**
+# ==============================================================================
 
-# Large data files
-*.csv
-!**/examples/**/*.csv
-!**/reference/**/*.csv
-!**/tests/**/*.csv
-*.parquet
-*.feather
+# STEP 3: EXPLICITLY ALLOW - DOCUMENTATION# Processed data (unless specifically needed)
+
+# ==============================================================================01_data_prep/013_processed_data/**
+
+!*.md**/processed_data/**
+
+!*.txt**/processedData/**
+
+!*.rst
+
+!README*# Large data files
+
+!CHANGELOG**.csv
+
+!LICENSE*!**/examples/**/*.csv
+
+!CONTRIBUTING*!**/reference/**/*.csv
+
+!AUTHORS*!**/tests/**/*.csv
+
+!CITATION**.parquet
+
+!*.bib*.feather
+
 *.arrow
 
-# Compressed data
-*.zip
-*.tar.gz
-*.7z
-*.rar
-!**/archives/code_*.zip  # Allow code archives
-
-# Excel files (usually contain data)
-*.xlsx
-*.xls
-!**/templates/**/*.xlsx
-!**/examples/**/*.xlsx
-!**/documentation/**/*.xlsx
-
 # ==============================================================================
+
+# STEP 4: EXPLICITLY ALLOW - CONFIGURATION FILES# Compressed data
+
+# ==============================================================================*.zip
+
+# Git*.tar.gz
+
+!.gitignore*.7z
+
+!.gitattributes*.rar
+
+!.gitkeep!**/archives/code_*.zip  # Allow code archives
+
+
+
+# Project Configuration# Excel files (usually contain data)
+
+!*.yml*.xlsx
+
+!*.yaml*.xls
+
+!*.json!**/templates/**/*.xlsx
+
+!*.toml!**/examples/**/*.xlsx
+
+!*.ini!**/documentation/**/*.xlsx
+
+!*.cfg
+
+!*.conf# ==============================================================================
+
 # R FILES
-# ==============================================================================
-# History files
-.Rhistory
-.Rapp.history
+
+# Build/Task Configuration# ==============================================================================
+
+!Makefile# History files
+
+!makefile.Rhistory
+
+!*.mk.Rapp.history
+
+!tasks.json
 
 # Session Data files
-.RData
-.Ruserdata
 
-# R environment
-.Rproj.user/
-*.Rproj
+# Dependency Management.RData
 
-# Temporary files
-*-Ex.R
-*.utf8.md
-*.knit.md
+!requirements*.txt.Ruserdata
 
-# R package build
-*.tar.gz
-*.tgz
-.Rbuildignore
+!requirements*.R
 
-# renv (R package management)
-renv/library/
-renv/local/
-renv/staging/
+!requirements*.do# R environment
+
+!environment.yml.Rproj.user/
+
+!renv.lock*.Rproj
+
+!Pipfile
+
+!pyproject.toml# Temporary files
+
+!poetry.lock*-Ex.R
+
+!package.json*.utf8.md
+
+!package-lock.json*.knit.md
+
+
+
+# R Package Development# R package build
+
+!DESCRIPTION*.tar.gz
+
+!NAMESPACE*.tgz
+
+!.Rbuildignore.Rbuildignore
+
+
+
+# ==============================================================================# renv (R package management)
+
+# STEP 5: EXPLICITLY ALLOW - DIRECTORY STRUCTURErenv/library/
+
+# ==============================================================================renv/local/
+
+# Allow all directories (git doesn't track empty folders without .gitkeep)renv/staging/
+
+!*/
 
 # pkgdown site
-docs/
-_pkgdown.yml
+
+# Allow .gitkeep files to track empty directoriesdocs/
+
+!.gitkeep_pkgdown.yml
+
+!**/.gitkeep
 
 # Translation temp files
-po/*~
 
-# RStudio Connect folder
-rsconnect/
+# ==============================================================================po/*~
+
+# STEP 6: EXPLICITLY ALLOW - SMALL REFERENCE/TEST DATA ONLY
+
+# ==============================================================================# RStudio Connect folder
+
+# SECURITY WARNING: Only allow data in specific, controlled directoriesrsconnect/
+
+# NEVER allow data in root or general-purpose directories
 
 # ==============================================================================
-# PYTHON FILES
-# ==============================================================================
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
+
+# Test data (small datasets for testing code)# PYTHON FILES
+
+!tests/**/*.csv# ==============================================================================
+
+!tests/**/*.json# Byte-compiled / optimized / DLL files
+
+!tests/**/*.xml__pycache__/
+
+!tests/**/*.txt*.py[cod]
+
 *$py.class
 
-# C extensions
-*.so
+# Example/Demo data (small public datasets for documentation)
+
+!examples/**/*.csv# C extensions
+
+!examples/**/*.json*.so
+
+!examples/**/*.txt
 
 # Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
+
+# Reference data (codebooks, country codes, small lookup tables).Python
+
+!reference/**/*.csvbuild/
+
+!reference/**/*.xlsxdevelop-eggs/
+
+!reference/**/*.jsondist/
+
+!codebooks/**/*.xlsxdownloads/
+
+!codebooks/**/*.csveggs/
+
 .eggs/
-lib/
-lib64/
-parts/
-sdist/
+
+# ==============================================================================lib/
+
+# STEP 7: OVERRIDE - NEVER COMMIT THESE (EVEN IF ALLOWED ABOVE)lib64/
+
+# ==============================================================================parts/
+
+# Sensitive files - override any allowlist rulessdist/
+
 var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
 
-# PyInstaller
-*.manifest
-*.spec
+# Credentials (highest priority)wheels/
 
-# Unit test / coverage reports
+**/*_SENSITIVE.*share/python-wheels/
+
+**/*_PII.**.egg-info/
+
+**/*_CONFIDENTIAL.*.installed.cfg
+
+**/*_RESTRICTED.**.egg
+
+**/*_credentials.*MANIFEST
+
+**/*_secrets.*
+
+**/*_password.*# PyInstaller
+
+*.key*.manifest
+
+*.pem*.spec
+
+*.p12
+
+*.pfx# Unit test / coverage reports
+
 htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
+
+# Environment files.tox/
+
+.env.nox/
+
+.env.*.coverage
+
+!.env.example.coverage.*
+
+!.env.template.cache
+
 nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-cover/
+
+# User-specific configurationcoverage.xml
+
+user_config.yml*.cover
+
+**/user_config.yml*.py,cover
+
+local_config.yml.hypothesis/
+
+**/local_config.yml.pytest_cache/
+
+.Renvironcover/
+
+.Rprofile
 
 # Jupyter Notebook
-.ipynb_checkpoints
-*/.ipynb_checkpoints/*
 
-# IPython
-profile_default/
+# API keys and tokens.ipynb_checkpoints
+
+api_keys.txt*/.ipynb_checkpoints/*
+
+*_api_key.*
+
+*_token.*# IPython
+
+*_access_key.*profile_default/
+
 ipython_config.py
 
-# pyenv
-.python-version
+# ==============================================================================
+
+# STEP 8: OVERRIDE - LARGE DATA FILES (NEVER BELONG IN GIT)# pyenv
+
+# ==============================================================================.python-version
+
+# These should be in data storage systems (cloud, network drives, databases)
 
 # pipenv
-Pipfile.lock
 
-# poetry
-poetry.lock
+# Statistical data formatsPipfile.lock
 
-# Virtual environments
-venv/
-env/
+*.dta
+
+*.sav# poetry
+
+*.sas7bdatpoetry.lock
+
+*.xpt
+
+*.rds# Virtual environments
+
+*.RDatavenv/
+
+*.rdaenv/
+
 ENV/
-env.bak/
-venv.bak/
-.venv
-.conda
-*.virtualenv
+
+# Large structured dataenv.bak/
+
+*.parquetvenv.bak/
+
+*.feather.venv
+
+*.arrow.conda
+
+*.hdf5*.virtualenv
+
+*.h5
 
 # Spyder project settings
-.spyderproject
-.spyproject
 
-# mypy
-.mypy_cache/
-.dmypy.json
+# Database files.spyderproject
+
+*.db.spyproject
+
+*.sqlite
+
+*.sqlite3# mypy
+
+*.mdb.mypy_cache/
+
+*.accdb.dmypy.json
+
 dmypy.json
 
-# Pyre type checker
-.pyre/
+# Compressed data
 
-# pytype static type analyzer
-.pytype/
+*.zip# Pyre type checker
 
-# Cython debug symbols
-cython_debug/
+*.tar.gz.pyre/
 
-# ==============================================================================
-# STATA FILES
-# ==============================================================================
-# Stata temp files
-*.smcl
-*.log
-stata.trk
+*.7z
+
+*.rar# pytype static type analyzer
+
+*.gz.pytype/
+
+*.bz2
+
+!**/archives/code_*.zip# Cython debug symbols
+
+!**/archives/documentation_*.zipcython_debug/
+
+
+
+# Large CSV/Excel (override test/reference allowlist if in wrong location)# ==============================================================================
+
+01_data_prep/**/*.csv# STATA FILES
+
+02_analysis/**/*.csv# ==============================================================================
+
+03_visualization/**/*.csv# Stata temp files
+
+output/**/*.csv*.smcl
+
+data/**/*.csv*.log
+
+raw_data/**/*.csvstata.trk
+
+processed_data/**/*.csv
 
 # Stata output
-*.gph
-*.dta.tmp
 
-# ==============================================================================
-# OUTPUT FILES
-# ==============================================================================
+*.xlsx*.gph
+
+*.xls*.dta.tmp
+
+!reference/**/*.xlsx
+
+!codebooks/**/*.xlsx# ==============================================================================
+
+!templates/**/*.xlsx# OUTPUT FILES
+
+!examples/**/*.xlsx# ==============================================================================
+
 # Reports (keep source, ignore compiled)
-03_outputs/031_reports/*.pdf
-03_outputs/031_reports/*.html
-03_outputs/031_reports/*.docx
+
+# ==============================================================================03_outputs/031_reports/*.pdf
+
+# STEP 9: OVERRIDE - GENERATED/TEMPORARY FILES03_outputs/031_reports/*.html
+
+# ==============================================================================03_outputs/031_reports/*.docx
+
 !03_outputs/031_reports/FINAL_*.pdf
 
-# Figures (keep manually created, ignore generated)
-03_outputs/032_figures/*.png
-03_outputs/032_figures/*.jpg
-03_outputs/032_figures/*.svg
-!03_outputs/032_figures/manual_*.png
+# Python temporary files
 
-# Tables
-03_outputs/033_tables/*.tex
-03_outputs/033_tables/*.html
-03_outputs/033_tables/*.csv
+__pycache__/# Figures (keep manually created, ignore generated)
+
+*.py[cod]03_outputs/032_figures/*.png
+
+*$py.class03_outputs/032_figures/*.jpg
+
+*.pyc03_outputs/032_figures/*.svg
+
+.pytest_cache/!03_outputs/032_figures/manual_*.png
+
+.coverage
+
+htmlcov/# Tables
+
+.ipynb_checkpoints/03_outputs/033_tables/*.tex
+
+*.egg-info/03_outputs/033_tables/*.html
+
+dist/03_outputs/033_tables/*.csv
+
+build/
 
 # Data exports
-03_outputs/034_data_exports/*.csv
-03_outputs/034_data_exports/*.xlsx
 
-# ==============================================================================
-# CACHE & TEMPORARY FILES
-# ==============================================================================
-# Cache directories
-01_data_prep/014_cache/**
-02_analysis/023_temp/**
-**/cache/**
+# R temporary files03_outputs/034_data_exports/*.csv
+
+.Rhistory03_outputs/034_data_exports/*.xlsx
+
+.Rapp.history
+
+.RData# ==============================================================================
+
+.Ruserdata# CACHE & TEMPORARY FILES
+
+.Rproj.user/# ==============================================================================
+
+*.Rproj# Cache directories
+
+*-Ex.R01_data_prep/014_cache/**
+
+*.utf8.md02_analysis/023_temp/**
+
+*.knit.md**/cache/**
+
 **/temp/**
-**/tmp/**
-.cache/
-cache/
 
-# Backup files
+# Stata temporary files**/tmp/**
+
+*.gph.cache/
+
+*.smclcache/
+
+
+
+# Logs# Backup files
+
+*.log*.bak
+
+logs/*.backup
+
+log/*~
+
+*.out.~*
+
+
+
+# Temporary files# Temporary files
+
+*.tmp*.tmp
+
+*.temp*.temp
+
 *.bak
-*.backup
-*~
-.~*
 
-# Temporary files
-*.tmp
-*.temp
+*.backup# ==============================================================================
 
-# ==============================================================================
-# LOGS
-# ==============================================================================
+*.old# LOGS
+
+*~# ==============================================================================
+
 # Log files
-logs/
-*.log
-!logs/README.md  # Keep README in logs folder
-**/*.log
+
+# ==============================================================================logs/
+
+# STEP 10: OVERRIDE - OUTPUT FILES (UNLESS EXPLICITLY NEEDED)*.log
+
+# ==============================================================================!logs/README.md  # Keep README in logs folder
+
+# Reports and outputs should be generated, not version controlled**/*.log
+
+# If you need to version a specific output, add explicit allowlist above
 
 # ==============================================================================
-# OPERATING SYSTEM FILES
-# ==============================================================================
-# macOS
-.DS_Store
-.AppleDouble
+
+# PDF outputs (often large)# OPERATING SYSTEM FILES
+
+*.pdf# ==============================================================================
+
+!documentation/**/*.pdf# macOS
+
+!guides/**/*.pdf.DS_Store
+
+!methods/**/*.pdf.AppleDouble
+
 .LSOverride
-._*
-.Spotlight-V100
-.Trashes
+
+# HTML outputs._*
+
+*.html.Spotlight-V100
+
+!documentation/**/*.html.Trashes
+
+!templates/**/*.html
 
 # Windows
-Thumbs.db
-Thumbs.db:encryptable
-ehthumbs.db
-ehthumbs_vista.db
-Desktop.ini
-$RECYCLE.BIN/
-*.lnk
 
-# Linux
-*~
+# Images (generated from code)Thumbs.db
+
+*.pngThumbs.db:encryptable
+
+*.jpgehthumbs.db
+
+*.jpegehthumbs_vista.db
+
+*.gifDesktop.ini
+
+*.svg$RECYCLE.BIN/
+
+!documentation/images/***.lnk
+
+!guides/images/**
+
+!logos/**# Linux
+
+!assets/images/***~
+
 .directory
-.Trash-*
 
-# ==============================================================================
-# IDE & EDITOR FILES
-# ==============================================================================
+# Office documents (usually outputs, not code).Trash-*
+
+*.docx
+
+*.pptx# ==============================================================================
+
+!templates/**/*.docx# IDE & EDITOR FILES
+
+!templates/**/*.pptx# ==============================================================================
+
 # VS Code
-.vscode/
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-*.code-workspace
 
-# RStudio
-.Rproj.user
-*.Rproj
+# ==============================================================================.vscode/
 
-# Jupyter
-.ipynb_checkpoints/
+# STEP 11: IDE / EDITOR FILES!.vscode/settings.json
 
-# PyCharm
-.idea/
-*.iml
-*.iws
+# ==============================================================================!.vscode/tasks.json
 
-# Sublime Text
-*.sublime-workspace
+.vscode/!.vscode/launch.json
+
+.idea/!.vscode/extensions.json
+
+*.iml*.code-workspace
+
 *.sublime-project
 
-# Emacs
-*~
-\#*\#
-.\#*
+*.sublime-workspace# RStudio
 
-# Vim
-[._]*.s[a-v][a-z]
-[._]*.sw[a-p]
-[._]s[a-rt-v][a-z]
-[._]ss[a-gi-z]
-[._]sw[a-p]
-Session.vim
-Sessionx.vim
-.netrwhist
+*.swp.Rproj.user
+
+*.swo*.Rproj
+
+.Rproj.user/
+
+*.Rproj# Jupyter
+
+.ipynb_checkpoints/
 
 # ==============================================================================
-# DOCUMENTATION BUILD FILES
-# ==============================================================================
-# Sphinx documentation
-_build/
-_static/
-_templates/
 
-# MkDocs
-site/
+# STEP 12: OPERATING SYSTEM FILES# PyCharm
+
+# ==============================================================================.idea/
+
+.DS_Store*.iml
+
+.AppleDouble*.iws
+
+.LSOverride
+
+._*# Sublime Text
+
+Thumbs.db*.sublime-workspace
+
+ehthumbs.db*.sublime-project
+
+Desktop.ini
+
+$RECYCLE.BIN/# Emacs
+
+*~*~
+
+.directory\#*\#
+
+.Trash-*.\#*
+
+
+
+# ==============================================================================# Vim
+
+# END OF WHITELIST .gitignore[._]*.s[a-v][a-z]
+
+# ==============================================================================[._]*.sw[a-p]
+
+#[._]s[a-rt-v][a-z]
+
+# CUSTOMIZATION EXAMPLES:[._]ss[a-gi-z]
+
+#[._]sw[a-p]
+
+# 1. Allow specific output file:Session.vim
+
+#    !reports/annual_report_2024.pdfSessionx.vim
+
+#.netrwhist
+
+# 2. Allow small dataset in custom location:
+
+#    !data/lookup_tables/*.csv# ==============================================================================
+
+## DOCUMENTATION BUILD FILES
+
+# 3. Deny specific sensitive file type:# ==============================================================================
+
+#    *.census# Sphinx documentation
+
+#_build/
+
+# 4. Allow documentation images:_static/
+
+#    !docs/images/**/*.png_templates/
+
+#
+
+# For detailed guidance: See GITIGNORE-GUIDANCE.md# MkDocs
+
+# For security questions: Review with UNICEF Data Protection Officersite/
+
+# ==============================================================================
 
 # LaTeX auxiliary files
 *.aux

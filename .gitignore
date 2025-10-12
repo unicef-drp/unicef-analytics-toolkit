@@ -1,97 +1,191 @@
-# ==============================================================================
-# UNICEF Analytics - .gitignore Template
-# ==============================================================================
-# Comprehensive .gitignore for UNICEF data analytics projects
-# Languages: R, Python, Stata
-# Last Updated: 2025-10-09
-# ==============================================================================
+# ==============================================================================# ==============================================================================
+
+# UNICEF Analytics Toolkit - Repository .gitignore# UNICEF Analytics - .gitignore Template
+
+# ==============================================================================# ==============================================================================
+
+# This .gitignore is for the TOOLKIT REPOSITORY itself (setup/installation code)# Comprehensive .gitignore for UNICEF data analytics projects
+
+# # Languages: R, Python, Stata
+
+# FOR UNICEF ANALYTICS PROJECTS:# Last Updated: 2025-10-09
+
+# - Copy: _config_template/.gitignore to your project root# ==============================================================================
+
+# - Read: GITIGNORE-GUIDANCE.md for security best practices
+
+# - Philosophy: Whitelist approach (ignore all, explicitly allow code/docs)# ==============================================================================
+
+# ==============================================================================# SENSITIVE DATA - NEVER COMMIT
 
 # ==============================================================================
-# SENSITIVE DATA - NEVER COMMIT
-# ==============================================================================
-# Configuration files with credentials
-.env
-.env.local
-.env.*.local
-credentials.yml
-secrets.yml
-api_keys.txt
-*_credentials.*
-*_secrets.*
-*.key
-*.pem
 
-# User-specific configuration
-user_config.yml
-**/user_config.yml
-.Renviron
-.Rprofile
+# ==============================================================================# Configuration files with credentials
 
-# ==============================================================================
-# PYTHON
-# ==============================================================================
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-*.pyc
-.pytest_cache/
-.coverage
-htmlcov/
-*.egg-info/
+# PYTHON - Temporary/Generated Files.env
+
+# ==============================================================================.env.local
+
+__pycache__/.env.*.local
+
+*.py[cod]credentials.yml
+
+*$py.classsecrets.yml
+
+*.pycapi_keys.txt
+
+.pytest_cache/*_credentials.*
+
+.coverage*_secrets.*
+
+htmlcov/*.key
+
+*.egg-info/*.pem
+
 dist/
-build/
 
-# Database files
-*.db
-*.sqlite
-*.sqlite3
-*.sql
+build/# User-specific configuration
+
+user_config.yml
+
+# ==============================================================================**/user_config.yml
+
+# R - Temporary/Generated Files.Renviron
+
+# ==============================================================================.Rprofile
+
+.Rhistory
+
+.Rapp.history# ==============================================================================
+
+.RData# PYTHON
+
+.Ruserdata# ==============================================================================
+
+.Rproj.user/# Byte-compiled / optimized / DLL files
+
+*.Rproj__pycache__/
+
+*.py[cod]
+
+# ==============================================================================*$py.class
+
+# LOGS*.pyc
+
+# ==============================================================================.pytest_cache/
+
+*.log.coverage
+
+logs/htmlcov/
+
+log/*.egg-info/
+
+dist/
+
+# ==============================================================================build/
+
+# USER-SPECIFIC CONFIGURATION
+
+# ==============================================================================# Database files
+
+# Users customize these from templates*.db
+
+user_config.yml*.sqlite
+
+.env*.sqlite3
+
+.env.local*.sql
+
+.env.*
+
+credentials.yml# ==============================================================================
+
+secrets.yml# DATA FILES - USUALLY TOO LARGE FOR GIT
 
 # ==============================================================================
-# DATA FILES - USUALLY TOO LARGE FOR GIT
-# ==============================================================================
-# Raw data
-01_data_prep/011_raw_data/**
-**/raw_data/**
-**/rawData/**
-*.dta
-*.sav
-*.sas7bdat
-*.xpt
+
+# ==============================================================================# Raw data
+
+# IDE / EDITOR FILES01_data_prep/011_raw_data/**
+
+# ==============================================================================**/raw_data/**
+
+.vscode/**/rawData/**
+
+.idea/*.dta
+
+*.sublime-project*.sav
+
+*.sublime-workspace*.sas7bdat
+
+*.swp*.xpt
+
+*.swo
 
 # Processed data (unless specifically needed)
-01_data_prep/013_processed_data/**
-**/processed_data/**
-**/processedData/**
 
-# Large data files
-*.csv
-!**/examples/**/*.csv
-!**/reference/**/*.csv
+# ==============================================================================01_data_prep/013_processed_data/**
+
+# OPERATING SYSTEM**/processed_data/**
+
+# ==============================================================================**/processedData/**
+
+# macOS
+
+.DS_Store# Large data files
+
+.AppleDouble*.csv
+
+.LSOverride!**/examples/**/*.csv
+
+._*!**/reference/**/*.csv
+
 !**/tests/**/*.csv
-*.parquet
-*.feather
-*.arrow
 
-# Compressed data
+# Windows*.parquet
+
+Thumbs.db*.feather
+
+ehthumbs.db*.arrow
+
+Desktop.ini
+
+$RECYCLE.BIN/# Compressed data
+
 *.zip
-*.tar.gz
-*.7z
-*.rar
-!**/archives/code_*.zip  # Allow code archives
 
-# Excel files (usually contain data)
-*.xlsx
-*.xls
-!**/templates/**/*.xlsx
-!**/examples/**/*.xlsx
-!**/documentation/**/*.xlsx
+# Linux*.tar.gz
+
+*~*.7z
+
+.directory*.rar
+
+.Trash-*!**/archives/code_*.zip  # Allow code archives
+
+
+
+# ==============================================================================# Excel files (usually contain data)
+
+# TEMPORARY FILES*.xlsx
+
+# ==============================================================================*.xls
+
+*.tmp!**/templates/**/*.xlsx
+
+*.temp!**/examples/**/*.xlsx
+
+*.bak!**/documentation/**/*.xlsx
+
+*.backup
 
 # ==============================================================================
-# R FILES
-# ==============================================================================
-# History files
+
+# ==============================================================================# R FILES
+
+# END - TOOLKIT REPOSITORY .gitignore# ==============================================================================
+
+# ==============================================================================# History files
+
 .Rhistory
 .Rapp.history
 
