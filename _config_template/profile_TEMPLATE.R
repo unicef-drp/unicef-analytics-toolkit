@@ -317,16 +317,27 @@ log_message <- function(msg, level = "INFO") {
 check_data_quality <- function(data, name = "dataset") {
   log_message(paste("Checking quality of", name))
   
+  # Ensure required packages are loaded
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("Package 'dplyr' is required for this function")
+  }
+  if (!requireNamespace("tidyr", quietly = TRUE)) {
+    stop("Package 'tidyr' is required for this function")
+  }
+  
+  # Load magrittr pipe
+  `%>%` <- magrittr::`%>%`
+  
   # Basic checks
   n_rows <- nrow(data)
   n_cols <- ncol(data)
   
-  # Missing values
+  # Missing values - with explicit namespace and .data pronoun
   missing_summary <- data %>%
-    summarise(across(everything(), ~sum(is.na(.)) / n())) %>%
-    pivot_longer(everything(), names_to = "variable", values_to = "missing_pct") %>%
-    filter(missing_pct > 0) %>%
-    arrange(desc(missing_pct))
+    dplyr::summarise(dplyr::across(dplyr::everything(), ~sum(is.na(.)) / dplyr::n())) %>%
+    tidyr::pivot_longer(dplyr::everything(), names_to = "variable", values_to = "missing_pct") %>%
+    dplyr::filter(dplyr::.data$missing_pct > 0) %>%
+    dplyr::arrange(dplyr::desc(dplyr::.data$missing_pct))
   
   # Duplicates
   n_duplicates <- sum(duplicated(data))

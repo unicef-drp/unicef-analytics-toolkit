@@ -66,7 +66,7 @@ is_installed <- function(pkg) {
 #' Install a single package with error handling
 #' @param pkg Package name
 #' @param type Installation type
-#' @return TRUE if successful, FALSE otherwise
+#' @return List with success status, package name, and error message
 install_package <- function(pkg, type = install_type) {
   tryCatch({
     if (type == "binary") {
@@ -74,20 +74,29 @@ install_package <- function(pkg, type = install_type) {
     } else {
       install.packages(pkg, quiet = TRUE)
     }
-    return(TRUE)
+    return(list(success = TRUE, pkg = pkg, error = NULL, retry = FALSE))
   }, error = function(e) {
+    # Log the error with details
+    error_msg <- conditionMessage(e)
+    warning(sprintf("Failed to install %s (%s): %s", pkg, type, error_msg))
+    
     # Try source installation if binary fails
     if (type == "binary") {
+      message(sprintf("  Retrying %s from source...", pkg))
       tryCatch({
         install.packages(pkg, type = "source", quiet = TRUE)
-        return(TRUE)
+        return(list(success = TRUE, pkg = pkg, error = NULL, retry = TRUE))
       }, error = function(e2) {
-        return(FALSE)
+        error_msg2 <- conditionMessage(e2)
+        warning(sprintf("  Source install also failed for %s: %s", pkg, error_msg2))
+        return(list(success = FALSE, pkg = pkg, error = error_msg2, retry = TRUE))
       })
     }
-    return(FALSE)
+    return(list(success = FALSE, pkg = pkg, error = error_msg, retry = FALSE))
   }, warning = function(w) {
-    return(TRUE)  # Warnings are usually okay
+    # Log warnings but continue
+    message(sprintf("  Warning for %s: %s", pkg, conditionMessage(w)))
+    return(list(success = TRUE, pkg = pkg, error = NULL, warning = conditionMessage(w)))
   })
 }
 
@@ -111,20 +120,26 @@ if (length(to_install) == 0) {
   # Installation counters
   success_count <- 0
   fail_count <- 0
-  failed_packages <- character()
+  failed_packages <- list()
   
   # Install each package
   for (i in seq_along(to_install)) {
     pkg <- to_install[i]
     cat(sprintf("[%d/%d] Installing: %-30s ... ", i, length(to_install), pkg))
     
-    if (install_package(pkg)) {
-      cat("✓\n")
+    result <- install_package(pkg)
+    
+    if (result$success) {
+      if (result$retry) {
+        cat("✓ (from source)\n")
+      } else {
+        cat("✓\n")
+      }
       success_count <- success_count + 1
     } else {
       cat("❌\n")
       fail_count <- fail_count + 1
-      failed_packages <- c(failed_packages, pkg)
+      failed_packages[[pkg]] <- result$error
     }
   }
   
@@ -139,10 +154,19 @@ if (length(to_install) == 0) {
   
   if (fail_count > 0) {
     cat("⚠️  Failed packages:\n")
-    for (pkg in failed_packages) {
+    for (pkg in names(failed_packages)) {
+      error_msg <- failed_packages[[pkg]]
       cat(sprintf("   - %s\n", pkg))
+      if (!is.null(error_msg)) {
+        cat(sprintf("     Error: %s\n", substr(error_msg, 1, 100)))
+      }
     }
-    cat("\nYou may need to install these manually or resolve dependencies.\n\n")
+    cat("\nTroubleshooting:\n")
+    cat("  1. Check your internet connection\n")
+    cat("  2. Verify CRAN mirror is accessible\n")
+    cat("  3. Try installing failed packages manually: install.packages('package_name')\n")
+    cat("  4. Check package dependencies\n")
+    cat("  5. See installation log for details\n\n")
   }
 }
 

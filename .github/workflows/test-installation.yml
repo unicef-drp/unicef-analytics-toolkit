@@ -1,0 +1,141 @@
+name: Test Installation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  test-r:
+    name: Test R Installation
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        r-version: ['4.0', '4.1', '4.2', '4.3']
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.r-version }}
+          use-public-rspm: true
+      
+      - name: Query R dependencies
+        run: |
+          install.packages('remotes')
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+        shell: Rscript {0}
+      
+      - name: Cache R packages
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+      
+      - name: Install system dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev libxml2-dev libssl-dev
+      
+      - name: Install testthat
+        run: |
+          install.packages('testthat')
+          install.packages('here')
+        shell: Rscript {0}
+      
+      - name: Install critical R packages
+        run: |
+          Rscript -e "install.packages(c('tidyverse', 'data.table', 'yaml', 'here', 'readxl', 'haven'))"
+      
+      - name: Run R tests
+        run: |
+          Rscript -e "testthat::test_dir('tests/testthat')"
+      
+      - name: Display session info
+        if: always()
+        run: |
+          Rscript -e "sessionInfo()"
+
+  test-python:
+    name: Test Python Installation
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pyyaml
+          pip install numpy pandas matplotlib seaborn
+      
+      - name: Run Python tests
+        run: |
+          pytest tests/python/ -v
+      
+      - name: Display Python info
+        if: always()
+        run: |
+          python --version
+          pip list
+
+  test-installation-scripts:
+    name: Test Installation Scripts
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.3'
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Test R package installer (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          Rscript install-r-packages.R
+        continue-on-error: true
+      
+      - name: Test R package installer (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          Rscript install-r-packages.R
+        continue-on-error: true
+      
+      - name: Test Python package installer
+        run: |
+          python install-python-packages.py
+        continue-on-error: true

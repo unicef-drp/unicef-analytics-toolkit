@@ -1,0 +1,465 @@
+# ==============================================================================
+# UNICEF Analytics - .gitignore Template
+# ==============================================================================
+# Comprehensive .gitignore for UNICEF data analytics projects
+# Languages: R, Python, Stata
+# Last Updated: 2025-10-09
+# ==============================================================================
+
+# ==============================================================================
+# SENSITIVE DATA - NEVER COMMIT
+# ==============================================================================
+# Configuration files with credentials
+.env
+.env.local
+.env.*.local
+credentials.yml
+secrets.yml
+api_keys.txt
+*_credentials.*
+*_secrets.*
+*.key
+*.pem
+
+# User-specific configuration
+user_config.yml
+**/user_config.yml
+.Renviron
+.Rprofile
+
+# ==============================================================================
+# PYTHON
+# ==============================================================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.sql
+
+# ==============================================================================
+# DATA FILES - USUALLY TOO LARGE FOR GIT
+# ==============================================================================
+# Raw data
+01_data_prep/011_raw_data/**
+**/raw_data/**
+**/rawData/**
+*.dta
+*.sav
+*.sas7bdat
+*.xpt
+
+# Processed data (unless specifically needed)
+01_data_prep/013_processed_data/**
+**/processed_data/**
+**/processedData/**
+
+# Large data files
+*.csv
+!**/examples/**/*.csv
+!**/reference/**/*.csv
+!**/tests/**/*.csv
+*.parquet
+*.feather
+*.arrow
+
+# Compressed data
+*.zip
+*.tar.gz
+*.7z
+*.rar
+!**/archives/code_*.zip  # Allow code archives
+
+# Excel files (usually contain data)
+*.xlsx
+*.xls
+!**/templates/**/*.xlsx
+!**/examples/**/*.xlsx
+!**/documentation/**/*.xlsx
+
+# ==============================================================================
+# R FILES
+# ==============================================================================
+# History files
+.Rhistory
+.Rapp.history
+
+# Session Data files
+.RData
+.Ruserdata
+
+# R environment
+.Rproj.user/
+*.Rproj
+
+# Temporary files
+*-Ex.R
+*.utf8.md
+*.knit.md
+
+# R package build
+*.tar.gz
+*.tgz
+.Rbuildignore
+
+# renv (R package management)
+renv/library/
+renv/local/
+renv/staging/
+
+# pkgdown site
+docs/
+_pkgdown.yml
+
+# Translation temp files
+po/*~
+
+# RStudio Connect folder
+rsconnect/
+
+# ==============================================================================
+# PYTHON FILES
+# ==============================================================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# poetry
+poetry.lock
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv
+.conda
+*.virtualenv
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# ==============================================================================
+# STATA FILES
+# ==============================================================================
+# Stata temp files
+*.smcl
+*.log
+stata.trk
+
+# Stata output
+*.gph
+*.dta.tmp
+
+# ==============================================================================
+# OUTPUT FILES
+# ==============================================================================
+# Reports (keep source, ignore compiled)
+03_outputs/031_reports/*.pdf
+03_outputs/031_reports/*.html
+03_outputs/031_reports/*.docx
+!03_outputs/031_reports/FINAL_*.pdf
+
+# Figures (keep manually created, ignore generated)
+03_outputs/032_figures/*.png
+03_outputs/032_figures/*.jpg
+03_outputs/032_figures/*.svg
+!03_outputs/032_figures/manual_*.png
+
+# Tables
+03_outputs/033_tables/*.tex
+03_outputs/033_tables/*.html
+03_outputs/033_tables/*.csv
+
+# Data exports
+03_outputs/034_data_exports/*.csv
+03_outputs/034_data_exports/*.xlsx
+
+# ==============================================================================
+# CACHE & TEMPORARY FILES
+# ==============================================================================
+# Cache directories
+01_data_prep/014_cache/**
+02_analysis/023_temp/**
+**/cache/**
+**/temp/**
+**/tmp/**
+.cache/
+cache/
+
+# Backup files
+*.bak
+*.backup
+*~
+.~*
+
+# Temporary files
+*.tmp
+*.temp
+
+# ==============================================================================
+# LOGS
+# ==============================================================================
+# Log files
+logs/
+*.log
+!logs/README.md  # Keep README in logs folder
+**/*.log
+
+# ==============================================================================
+# OPERATING SYSTEM FILES
+# ==============================================================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ==============================================================================
+# IDE & EDITOR FILES
+# ==============================================================================
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# RStudio
+.Rproj.user
+*.Rproj
+
+# Jupyter
+.ipynb_checkpoints/
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+Sessionx.vim
+.netrwhist
+
+# ==============================================================================
+# DOCUMENTATION BUILD FILES
+# ==============================================================================
+# Sphinx documentation
+_build/
+_static/
+_templates/
+
+# MkDocs
+site/
+
+# LaTeX auxiliary files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.out
+*.toc
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+
+# ==============================================================================
+# PACKAGE MANAGERS
+# ==============================================================================
+# Node.js (if using for tooling)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ==============================================================================
+# ARCHIVES & COMPRESSED FILES
+# ==============================================================================
+# Archives (except documented releases)
+archives/
+*.zip
+*.tar.gz
+*.7z
+!releases/*.zip
+!releases/*.tar.gz
+
+# ==============================================================================
+# PROJECT-SPECIFIC
+# ==============================================================================
+# Add your project-specific ignores below this line
+
+# Example: Specific data sources
+# mics_data/
+# dhs_surveys/
+
+# Example: Large model files
+# models/*.rds
+# models/*.pkl
+
+# Example: Client-specific data
+# client_confidential/
+
+# ==============================================================================
+# EXCEPTIONS - FILES TO ALWAYS TRACK
+# ==============================================================================
+# Force include these files even if they match patterns above
+!README.md
+!LICENSE
+!CITATION.cff
+!.gitignore
+!Makefile
+
+# Force include example/template files
+!examples/**
+!templates/**
+!_config_template/**
+
+# Force include documentation
+!docs/*.md
+!*.Rmd
+!*.qmd
+
+# Force include test data (small samples only)
+!tests/data/*.csv
+!tests/fixtures/*.json
+
+# ==============================================================================
+# NOTES
+# ==============================================================================
+# Usage:
+# 1. Copy this file to your project root as .gitignore
+# 2. Customize the PROJECT-SPECIFIC section for your needs
+# 3. Review EXCEPTIONS section - add patterns for files you want tracked
+# 4. Before first commit, run: git status
+#    Ensure no sensitive data or large files are staged
+#
+# Best Practices:
+# - Never commit credentials, API keys, or passwords
+# - Keep data files out of version control (use data management system)
+# - Document any exceptions to these rules in project README
+# - Use .env files for environment variables (add to .gitignore)
+# - For team projects, agree on what should/shouldn't be tracked
+# ==============================================================================

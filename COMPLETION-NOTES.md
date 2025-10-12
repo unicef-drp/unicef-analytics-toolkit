@@ -2,7 +2,11 @@
 
 ## 🎉 Repository Creation Complete
 
-### Created: `c:\GitHub\mytasks\unicef-analytics-setup\`
+# UNICEF Analytics Toolkit - Completion Notes
+
+## Project Overview
+
+### Created: `c:\GitHub\mytasks\unicef-analytics-toolkit\` (formerly `unicef-analytics-setup`)
 
 **Total Files**: 16
 **Last Updated**: 2025
@@ -113,7 +117,11 @@ make check-ides
 **Windows (PowerShell)**:
 ```powershell
 # Install packages
+```powershell
+# Test in Windows
+cd c:\GitHub\mytasks\unicef-analytics-toolkit
 .\install-windows.bat
+```
 
 # Install IDEs
 .\install-ides-windows.ps1

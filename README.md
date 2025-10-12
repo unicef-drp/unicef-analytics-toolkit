@@ -1,10 +1,31 @@
-# UNICEF Analytics Environment Setup
+# UNICEF Analytics Toolkit
 
-**One-command installation of all core software and dependencies for UNICEF data analytics and research reproduction.**
+[![Test Installation](https://github.com/unicef/analytics-toolkit/actions/workflows/test-installation.yml/badge.svg)](https://github.com/unicef/analytics-toolkit/actions/workflows/test-installation.yml)
+[![Lint and Quality](https://github.com/unicef/analytics-toolkit/actions/workflows/lint.yml/badge.svg)](https://github.com/unicef/analytics-toolkit/actions/workflows/lint.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+**Comprehensive toolkit for UNICEF data analytics: automated environment setup, quality assurance utilities, and reproducible research tools.**
+
+---
+
+**Developed by**: [UNICEF Division of Data, Analytics, Planning and Monitoring (DAPM)](https://data.unicef.org/)  
+**Maintained by**: Chief Statistician Office, UNICEF  
+**Contact**: [data@unicef.org](mailto:data@unicef.org)
+
+---
 
 ## 🎯 Purpose
 
-This repository provides automated setup for the complete UNICEF analytics environment, enabling researchers and analysts to quickly configure their local machines with all required free and open-source software needed to reproduce analysis across UNICEF's research repositories.
+The UNICEF Analytics Toolkit provides:
+
+1. **Automated Environment Setup** - One-command installation of R, Python, Stata, and dependencies
+2. **Quality Assurance Utilities** - Data validation, metadata management, and documentation generation
+3. **Reproducible Workflows** - Standard project templates and helper functions
+4. **Multi-language Support** - R, Python, and Stata utilities for cross-platform analytics
+
+Enabling UNICEF researchers and analysts to quickly configure their machines and work with standardized, high-quality analytical workflows.
+
+**Inspired by**: World Bank's [EduAnalyticsToolkit](https://github.com/worldbank/EduAnalyticsToolkit) - adapted for UNICEF's multi-language, cross-sectoral analytics ecosystem.
 
 ## 📦 What Gets Installed
 
@@ -224,9 +245,61 @@ make check-stata  # Verify Stata installation
 3. Review installation logs in `logs/`
 4. Open an issue on GitHub
 
-## 🤝 Contributing
+## � Testing
+
+### Run All Tests
+
+```bash
+# R tests
+Rscript -e "testthat::test_dir('tests/testthat')"
+
+# Python tests
+pytest tests/python/ -v
+
+# Or use make
+make test
+```
+
+### Test Coverage
+
+The test suite covers:
+- **Installation validation** - Verify all critical packages installed
+- **Configuration loading** - Test YAML config parsing
+- **Path detection** - Validate project structure
+- **Package functionality** - Basic operations work correctly
+
+See `tests/` directory for complete test suite.
+
+## 🔧 Development
+
+### Setting Up Development Environment
+
+```bash
+# Clone repository
+git clone https://github.com/unicef/analytics-toolkit
+cd analytics-toolkit
+
+# Install in development mode
+make setup
+
+# Run tests
+make test
+
+# Run linting
+make lint
+```
+
+### Pre-commit Hooks (Optional)
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+## �🤝 Contributing
 
 Contributions welcome! Please:
+
 1. Test changes on your platform
 2. Update documentation
 3. Add to CHANGELOG.md
@@ -238,10 +311,44 @@ MIT License - See [LICENSE](LICENSE)
 
 ## ✨ Credits
 
-Developed by the UNICEF Data & Analytics Section to support reproducible research and collaborative analytics across the organization.
+**Developed by**: [UNICEF Division of Data, Analytics, Planning and Monitoring (DAPM)](https://data.unicef.org/)  
+**Maintained by**: Chief Statistician Office, UNICEF  
+**Contact**: [data@unicef.org](mailto:data@unicef.org)
+
+### Acknowledgments
+
+- **World Bank EduAnalytics Team** - [EduAnalyticsToolkit](https://github.com/worldbank/EduAnalyticsToolkit) provided inspiration for data quality and metadata management approaches
+- **UNICEF Data and Analytics teams** worldwide for requirements, feedback, and testing
+- **Open-source community** - Package developers and maintainers whose tools make this possible
+- **rOpenSci** - Contribution guidelines and best practices
+
+### Related UNICEF Resources
+
+- [UNICEF Data Portal](https://data.unicef.org/) - Official statistics and data visualization
+- [UNICEF Data Warehouse](https://sdmx.data.unicef.org/) - Statistical Data and Metadata eXchange
+- [MICS Programme](https://mics.unicef.org/) - Multiple Indicator Cluster Surveys
+- [UNICEF GitHub](https://github.com/unicef) - Open-source projects and tools
+
+### Inspiration and Collaboration
+
+This toolkit draws inspiration from similar initiatives:
+- [World Bank EduAnalyticsToolkit](https://github.com/worldbank/EduAnalyticsToolkit) - Stata toolkit for education analytics
+- [World Bank DIME Analytics](https://github.com/worldbank/dime-analytics) - Impact evaluation tools
+- [WHO Analytics Tools](https://www.who.int/data/analytics-tools) - Health data analysis resources
 
 ---
 
-**Last Updated:** October 2025  
-**Maintained by:** UNICEF Data & Analytics Section  
-**Repository:** [github.com/unicef/analytics-setup](https://github.com/unicef/analytics-setup)
+**Version**: 2.0  
+**Last Updated**: 2025-10-10  
+**License**: MIT  
+**Repository**: [github.com/unicef/analytics-toolkit](https://github.com/unicef/analytics-toolkit)
+
+---
+
+<div align="center">
+
+**For every child, data-driven insights**
+
+[UNICEF](https://www.unicef.org/) | [Data & Analytics](https://data.unicef.org/) | [GitHub](https://github.com/unicef)
+
+</div>

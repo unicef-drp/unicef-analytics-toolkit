@@ -137,7 +137,7 @@ def install_packages(packages):
     
     success_count = 0
     fail_count = 0
-    failed_packages = []
+    failed_packages = {}
     
     for i, package in enumerate(packages, 1):
         print(f"[{i}/{len(packages)}] Installing: {package:50} ... ", end='', flush=True)
@@ -157,15 +157,17 @@ def install_packages(packages):
             else:
                 print(f"{Colors.RED}✗{Colors.NC}")
                 fail_count += 1
-                failed_packages.append(package)
+                # Store error details
+                error_msg = result.stderr.strip() if result.stderr else "Unknown error"
+                failed_packages[package] = error_msg[:200]  # Limit error message length
         except subprocess.TimeoutExpired:
             print(f"{Colors.RED}✗ (timeout){Colors.NC}")
             fail_count += 1
-            failed_packages.append(package)
+            failed_packages[package] = "Installation timeout after 5 minutes"
         except Exception as e:
             print(f"{Colors.RED}✗ ({str(e)}){Colors.NC}")
             fail_count += 1
-            failed_packages.append(package)
+            failed_packages[package] = str(e)
     
     return success_count, fail_count, failed_packages
 
@@ -226,9 +228,10 @@ def save_installation_log(success_count, fail_count, failed_packages):
         f.write(f"  Failed: {fail_count}\n\n")
         
         if failed_packages:
-            f.write("Failed Packages:\n")
-            for pkg in failed_packages:
+            f.write("Failed Packages and Errors:\n")
+            for pkg, error in failed_packages.items():
                 f.write(f"  - {pkg}\n")
+                f.write(f"    Error: {error}\n")
             f.write("\n")
         
         f.write("Installed Packages:\n")
@@ -268,8 +271,16 @@ def main():
         
         if failed_packages:
             print(f"\n{Colors.YELLOW}Failed packages:{Colors.NC}")
-            for pkg in failed_packages:
+            for pkg, error in failed_packages.items():
                 print(f"  - {pkg}")
+                print(f"    {error[:100]}")
+            
+            print(f"\n{Colors.YELLOW}Troubleshooting:{Colors.NC}")
+            print("  1. Check your internet connection")
+            print("  2. Verify pip is up to date: python -m pip install --upgrade pip")
+            print("  3. Try installing failed packages manually: pip install package_name")
+            print("  4. Check for dependency conflicts")
+            print("  5. See installation log for full error details\n")
         
         # Verify critical packages
         critical_ok = verify_critical_packages()
