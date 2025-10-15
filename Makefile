@@ -30,6 +30,15 @@ STATA_REQUIREMENTS := requirements-stata.do
 R_INSTALLER := install-r-packages.R
 PYTHON_INSTALLER := install-python-packages.py
 
+# Virtual env executables (cross-platform)
+ifeq ($(OS),Windows_NT)
+VENV_PYTHON := $(VENV_DIR)/Scripts/python.exe
+VENV_PIP := $(VENV_DIR)/Scripts/pip.exe
+else
+VENV_PYTHON := $(VENV_DIR)/bin/python
+VENV_PIP := $(VENV_DIR)/bin/pip
+endif
+
 # Colors (for Unix-like systems)
 RED := \033[0;31m
 GREEN := \033[0;32m
@@ -131,8 +140,13 @@ list-r: ## List installed R packages
 
 install-python: check-python create-venv ## Install all Python packages
 	@echo "$(BLUE)🐍 Installing Python packages...$(NC)"
-	@$(VENV_DIR)/bin/pip install -r $(PYTHON_REQUIREMENTS) 2>&1 | tee $(LOGS_DIR)/python-install.log || \
-		$(PIP) install -r $(PYTHON_REQUIREMENTS) 2>&1 | tee $(LOGS_DIR)/python-install.log
+	@if [ -x "$(VENV_PIP)" ]; then \
+		echo "Using venv pip: $(VENV_PIP)"; \
+		"$(VENV_PIP)" install -r "$(PYTHON_REQUIREMENTS)" 2>&1 | tee "$(LOGS_DIR)/python-install.log"; \
+	else \
+		echo "Virtualenv pip not found, using system pip"; \
+		$(PIP) install -r "$(PYTHON_REQUIREMENTS)" 2>&1 | tee "$(LOGS_DIR)/python-install.log"; \
+	fi
 	@echo "$(GREEN)✓ Python packages installed$(NC)"
 
 check-python: ## Check Python installation
@@ -212,9 +226,11 @@ check-jupyter: ## Check Jupyter installation
 		(jupyter --version | head -n 1 && echo "$(GREEN)✓$(NC)") || \
 		echo "$(YELLOW)⚠ Not found - will be installed with Python packages$(NC)"
 
-install-pandoc: ## Install Pandoc via R
-	@echo "$(BLUE)📄 Installing Pandoc...$(NC)"
-	@$(R) -e "if (!requireNamespace('pandoc', quietly = TRUE)) install.packages('pandoc'); pandoc::pandoc_install()"
+install-pandoc: ## Guidance to install Pandoc
+	@echo "$(BLUE)📄 Pandoc installation guidance...$(NC)"
+	@echo "Pandoc is a system dependency and is not installed from CRAN."
+	@echo "Please install Pandoc from: https://pandoc.org/installing.html"
+	@echo "Then verify with: pandoc --version"
 
 install-quarto: ## Download Quarto installer
 	@echo "$(BLUE)📚 Please install Quarto manually from:$(NC)"

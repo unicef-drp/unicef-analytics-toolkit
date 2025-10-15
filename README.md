@@ -30,6 +30,7 @@ Enabling UNICEF researchers and analysts to quickly configure their machines and
 ## 📦 What Gets Installed
 
 ### Core Software
+
 - **R** (>= 4.0.0) - Statistical computing
 - **Python** (>= 3.9) - Data science and automation
 - **Stata** (if available) - Econometric analysis
@@ -38,6 +39,7 @@ Enabling UNICEF researchers and analysts to quickly configure their machines and
 - **Git** - Version control
 
 ### Development Tools
+
 - **VS Code** (recommended) - Integrated development environment
 - **radian** - Enhanced R console
 - **Jupyter** - Interactive notebooks
@@ -58,23 +60,25 @@ Automated installation helpers for RStudio, VS Code, Spyder, and LaTeX distribut
 ## 🚀 Quick Start
 
 ### Windows
+
 ```powershell
 # Clone repository
-git clone https://github.com/yourusername/unicef-analytics-setup
-cd unicef-analytics-setup
+git clone https://github.com/unicef/analytics-toolkit.git
+cd analytics-toolkit
 
-# Run automated setup
-.\install-windows.bat
+# Run automated setup (recommended on Windows PowerShell)
+./install-windows.bat
 
-# Or use Make
+# Or use Make (requires Git Bash or GNU Make on Windows)
 make setup
 ```
 
 ### macOS/Linux
+
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/unicef-analytics-setup
-cd unicef-analytics-setup
+git clone https://github.com/unicef/analytics-toolkit.git
+cd analytics-toolkit
 
 # Make installer executable
 chmod +x install-unix.sh
@@ -94,23 +98,27 @@ If you prefer step-by-step installation or need to customize:
 See [INSTALL.md](INSTALL.md) for platform-specific instructions.
 
 ### Step 2: Install R Packages
+
 ```r
 # In R console
 source("install-r-packages.R")
 ```
 
 ### Step 3: Install Python Packages
+
 ```bash
 pip install -r requirements-python.txt
 ```
 
 ### Step 4: Install Stata Packages (optional)
+
 ```stata
 # In Stata console
 do requirements-stata.do
 ```
 
 ### Step 5: Verify Installation
+
 ```bash
 make check
 ```
@@ -120,6 +128,7 @@ make check
 The repository includes a comprehensive Makefile with 40+ automation commands:
 
 ### Setup & Installation
+
 ```bash
 make setup              # Complete environment setup
 make check              # Verify all dependencies
@@ -129,6 +138,7 @@ make install-stata      # Install Stata packages only
 ```
 
 ### Environment Management
+
 ```bash
 make create-venv        # Create Python virtual environment
 make activate-venv      # Show activation command
@@ -136,6 +146,7 @@ make update-all         # Update all packages
 ```
 
 ### Testing & Validation
+
 ```bash
 make test               # Run test suite
 make test-r             # Test R environment
@@ -144,6 +155,7 @@ make validate           # Validate installation
 ```
 
 ### Documentation
+
 ```bash
 make help               # Show all commands
 make docs               # Open documentation
@@ -151,6 +163,7 @@ make info               # Show system information
 ```
 
 ### Maintenance
+
 ```bash
 make clean              # Clean temporary files
 make clean-all          # Deep clean (including venv)
@@ -198,6 +211,7 @@ cp _config_template/user_config.yml ~/.config/user_config.yml
 ```
 
 Edit `~/.config/user_config.yml`:
+
 ```yaml
 your_username:
   githubFolder: "/path/to/GitHub"
@@ -225,16 +239,19 @@ The setup automatically configures:
 ### Common Issues
 
 **R packages fail to install:**
+
 ```bash
 make install-r BINARY=TRUE  # Use binary packages on Windows
 ```
 
 **Python version conflicts:**
+
 ```bash
 make create-venv PYTHON=python3.9  # Specify Python version
 ```
 
 **Stata not in PATH:**
+
 ```bash
 make check-stata  # Verify Stata installation
 ```
@@ -245,7 +262,7 @@ make check-stata  # Verify Stata installation
 3. Review installation logs in `logs/`
 4. Open an issue on GitHub
 
-## � Testing
+## 🧪 Testing
 
 ### Run All Tests
 
@@ -296,7 +313,7 @@ pip install pre-commit
 pre-commit install
 ```
 
-## �🤝 Contributing
+## 🤝 Contributing
 
 Contributions welcome! Please:
 
