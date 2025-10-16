@@ -46,15 +46,19 @@ Enabling UNICEF researchers and analysts to quickly configure their machines and
 - **RStudio** (optional) - R-specific IDE
 
 ### R Packages (90+ packages)
+
 Core data manipulation, visualization, statistical analysis, external data APIs, reporting, and quality tools.
 
 ### Python Packages (100+ packages)
+
 Data science stack, API clients, testing frameworks, code quality tools, and reporting utilities.
 
 ### Stata Packages (60+ packages)
+
 User-written statistical and data management utilities.
 
 ### IDEs & Editors
+
 Automated installation helpers for RStudio, VS Code, Spyder, and LaTeX distributions.
 
 ## 🚀 Quick Start
@@ -67,10 +71,14 @@ git clone https://github.com/unicef/analytics-toolkit.git
 cd analytics-toolkit
 
 # Run automated setup (recommended on Windows PowerShell)
-./install-windows.bat
+.\install-windows.bat
 
 # Or use Make (requires Git Bash or GNU Make on Windows)
 make setup
+
+# Or use the PowerShell helper (no Make required)
+./tasks.ps1 setup
+./tasks.ps1 install-python -Extras geo,viz
 ```
 
 ### macOS/Linux
@@ -95,6 +103,7 @@ make setup
 If you prefer step-by-step installation or need to customize:
 
 ### Step 1: Install Core Software
+
 See [INSTALL.md](INSTALL.md) for platform-specific instructions.
 
 ### Step 2: Install R Packages
@@ -108,6 +117,16 @@ source("install-r-packages.R")
 
 ```bash
 pip install -r requirements-python.txt
+```
+
+Optional: install via split base/extras with constraints
+
+```bash
+# Base only (recommended)
+pip install -r requirements-python.base.txt -c constraints.txt
+
+# Base + geospatial + visualization extras
+pip install -r requirements-python.base.txt -r requirements-python.geo.txt -r requirements-python.viz.txt -c constraints.txt
 ```
 
 ### Step 4: Install Stata Packages (optional)
@@ -175,23 +194,27 @@ make backup             # Create configuration backup
 This setup enables reproduction of analysis from:
 
 ### Education & Learning
+
 - `EduAnalytics-Unicef` - Education data harmonization
 - `LearningPoverty-Production` - Learning poverty metrics
 - `GLAD-Analytics` - Global Learning Assessment Database
 - `benchmark-edu` - Educational benchmarking
 
 ### Child Wellbeing & Development
+
 - `ChildWellbeing` - Child life-course index
 - `MICS-analytics` - MICS survey analysis
 - `health-equity` - Health equity indicators
 - `child-life-course-index` - Multi-dimensional child indices
 
 ### Data Warehouse & Production
+
 - `DW-Production` - UNICEF data warehouse pipeline
 - `PROD-SDG-REP-2025` - SDG reporting production
 - `SDGnetAnalysis` - SDG network analysis
 
 ### Specialized Analytics
+
 - `ccri` - Climate-related child risk indices
 - `fiscal_capacity_package` - Fiscal capacity analysis
 - `wb-api-repo` - World Bank API tools
@@ -200,6 +223,7 @@ This setup enables reproduction of analysis from:
 ## 🔧 Configuration
 
 ### User Configuration
+
 Create a user configuration file:
 
 ```bash
@@ -220,7 +244,9 @@ your_username:
 ```
 
 ### Environment Variables
+
 The setup automatically configures:
+
 - R library path
 - Python virtual environment
 - PATH additions for tools
@@ -257,6 +283,7 @@ make check-stata  # Verify Stata installation
 ```
 
 ### Getting Help
+
 1. Check [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
 2. Run `make diagnose` for system diagnostics
 3. Review installation logs in `logs/`
@@ -280,6 +307,7 @@ make test
 ### Test Coverage
 
 The test suite covers:
+
 - **Installation validation** - Verify all critical packages installed
 - **Configuration loading** - Test YAML config parsing
 - **Path detection** - Validate project structure
@@ -349,6 +377,7 @@ MIT License - See [LICENSE](LICENSE)
 ### Inspiration and Collaboration
 
 This toolkit draws inspiration from similar initiatives:
+
 - [World Bank EduAnalyticsToolkit](https://github.com/worldbank/EduAnalyticsToolkit) - Stata toolkit for education analytics
 - [World Bank DIME Analytics](https://github.com/worldbank/dime-analytics) - Impact evaluation tools
 - [WHO Analytics Tools](https://www.who.int/data/analytics-tools) - Health data analysis resources
@@ -362,10 +391,6 @@ This toolkit draws inspiration from similar initiatives:
 
 ---
 
-<div align="center">
-
-**For every child, data-driven insights**
+## For every child, data-driven insights
 
 [UNICEF](https://www.unicef.org/) | [Data & Analytics](https://data.unicef.org/) | [GitHub](https://github.com/unicef)
-
-</div>

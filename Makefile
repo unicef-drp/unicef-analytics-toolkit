@@ -26,6 +26,8 @@ BACKUP_DIR := $(INSTALL_DIR)/backups
 # Files
 R_REQUIREMENTS := requirements-r.txt
 PYTHON_REQUIREMENTS := requirements-python.txt
+PYTHON_BASE := requirements-python.base.txt
+PYTHON_CONSTRAINTS := constraints.txt
 STATA_REQUIREMENTS := requirements-stata.do
 R_INSTALLER := install-r-packages.R
 PYTHON_INSTALLER := install-python-packages.py
@@ -125,7 +127,7 @@ check-r: ## Check R installation
 
 test-r: ## Test R environment
 	@echo "$(BLUE)🧪 Testing R environment...$(NC)"
-	@$(R) -e "source('test-r-environment.R')"
+	@$(R) -e "testthat::test_dir('tests/testthat')"
 
 update-r: ## Update all R packages
 	@echo "$(BLUE)🔄 Updating R packages...$(NC)"
@@ -138,15 +140,40 @@ list-r: ## List installed R packages
 # Python Installation
 # ==============================================================================
 
-install-python: check-python create-venv ## Install all Python packages
+install-python: check-python create-venv ## Install Python packages (supports EXTRAS="geo ml viz ...")
 	@echo "$(BLUE)🐍 Installing Python packages...$(NC)"
-	@if [ -x "$(VENV_PIP)" ]; then \
-		echo "Using venv pip: $(VENV_PIP)"; \
-		"$(VENV_PIP)" install -r "$(PYTHON_REQUIREMENTS)" 2>&1 | tee "$(LOGS_DIR)/python-install.log"; \
-	else \
-		echo "Virtualenv pip not found, using system pip"; \
-		$(PIP) install -r "$(PYTHON_REQUIREMENTS)" 2>&1 | tee "$(LOGS_DIR)/python-install.log"; \
-	fi
+	@PIP_CMD=$$( [ -x "$(VENV_PIP)" ] && echo "$(VENV_PIP)" || echo "$(PIP)" ); \
+	 echo "Using pip: $$PIP_CMD"; \
+	 LOG_FILE="$(LOGS_DIR)/python-install.log"; \
+	 mkdir -p "$(LOGS_DIR)"; \
+	 if [ -f "$(PYTHON_BASE)" ]; then \
+	   if [ -s "$(PYTHON_CONSTRAINTS)" ]; then \
+	     $$PIP_CMD install -r "$(PYTHON_BASE)" -c "$(PYTHON_CONSTRAINTS)" 2>&1 | tee "$$LOG_FILE"; \
+	   else \
+	     $$PIP_CMD install -r "$(PYTHON_BASE)" 2>&1 | tee "$$LOG_FILE"; \
+	   fi; \
+	 fi; \
+	 for extra in $(EXTRAS); do \
+	   FILE="requirements-python.$${extra}.txt"; \
+	   if [ -f "$$FILE" ]; then \
+	     echo "Installing extra: $$FILE"; \
+	     if [ -s "$(PYTHON_CONSTRAINTS)" ]; then \
+	       $$PIP_CMD install -r "$$FILE" -c "$(PYTHON_CONSTRAINTS)" 2>&1 | tee -a "$$LOG_FILE"; \
+	     else \
+	       $$PIP_CMD install -r "$$FILE" 2>&1 | tee -a "$$LOG_FILE"; \
+	     fi; \
+	   else \
+	     echo "$(YELLOW)⚠ Extra not found: $$FILE$(NC)"; \
+	   fi; \
+	 done; \
+	 if [ -f "$(PYTHON_REQUIREMENTS)" ]; then \
+	   echo "Installing legacy requirements: $(PYTHON_REQUIREMENTS)"; \
+	   if [ -s "$(PYTHON_CONSTRAINTS)" ]; then \
+	     $$PIP_CMD install -r "$(PYTHON_REQUIREMENTS)" -c "$(PYTHON_CONSTRAINTS)" 2>&1 | tee -a "$$LOG_FILE"; \
+	   else \
+	     $$PIP_CMD install -r "$(PYTHON_REQUIREMENTS)" 2>&1 | tee -a "$$LOG_FILE"; \
+	   fi; \
+	 fi
 	@echo "$(GREEN)✓ Python packages installed$(NC)"
 
 check-python: ## Check Python installation
@@ -176,7 +203,7 @@ activate-venv: ## Show command to activate virtual environment
 
 test-python: ## Test Python environment
 	@echo "$(BLUE)🧪 Testing Python environment...$(NC)"
-	@$(PYTHON) test-python-environment.py
+	@pytest tests/python/ -v
 
 update-python: ## Update all Python packages
 	@echo "$(BLUE)🔄 Updating Python packages...$(NC)"
@@ -250,8 +277,7 @@ test: test-r test-python ## Run all tests
 validate: ## Validate installation
 	@echo "$(BLUE)🔍 Validating installation...$(NC)"
 	@$(MAKE) check
-	@$(R) -e "source('validate-installation.R')"
-	@$(PYTHON) validate-installation.py
+	@$(MAKE) test
 	@echo "$(GREEN)✓ Validation complete$(NC)"
 
 diagnose: ## Run diagnostic tests

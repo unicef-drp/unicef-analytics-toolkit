@@ -84,11 +84,17 @@ def check_virtual_env():
         print_warning("Not running in a virtual environment")
         print("  Consider creating one with: python -m venv venv")
         print("  Activate it before installing packages")
-        
-        response = input("\nContinue anyway? [y/N]: ").strip().lower()
-        if response != 'y':
-            print("Installation cancelled.")
-            sys.exit(0)
+        # Non-interactive safe: continue automatically in CI or if stdin not a TTY
+        ci = os.environ.get("CI", "").lower() in {"1", "true", "yes"}
+        assume_yes = os.environ.get("ASSUME_YES", "").lower() in {"1", "true", "yes"}
+        if not (ci or assume_yes or sys.stdin and sys.stdin.isatty() is False):
+            try:
+                response = input("\nContinue anyway? [y/N]: ").strip().lower()
+            except EOFError:
+                response = 'y' if ci else 'n'
+            if response != 'y':
+                print("Installation cancelled.")
+                sys.exit(0)
     
     return in_venv
 

@@ -1,0 +1,10 @@
+# Optional constraints to improve reproducibility and CI stability.
+# Example pins (uncomment as needed):
+# numpy==1.26.4
+# pandas==2.2.2
+# shapely==2.0.4
+# pyproj==3.6.1
+# rasterio==1.3.9
+# prophet==1.1.5
+# torch==2.2.2
+# tensorflow==2.15.0

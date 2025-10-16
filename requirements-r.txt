@@ -89,15 +89,12 @@ plotly             # Interactive plots
 # COMPOSITE INDICATORS & INDICES
 # ============================================================================
 COINr              # Composite Indicator framework
-ggcorrplot         # Correlation visualizations
 
 # ============================================================================
 # REPORTING & DOCUMENTATION
 # ============================================================================
 knitr              # Dynamic report generation
 rmarkdown          # R Markdown documents
-pandoc             # Pandoc integration
-quarto             # Quarto publishing
 DT                 # Interactive data tables
 gt                 # Grammar of Tables
 flextable          # Flexible tables

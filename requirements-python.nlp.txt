@@ -1,0 +1,7 @@
+# NLP & Text processing extras
+nltk>=3.8.1
+spacy>=3.6.0
+textblob>=0.17.1
+wordcloud>=1.9.2
+markdown>=3.4.0
+mistune>=3.0.0

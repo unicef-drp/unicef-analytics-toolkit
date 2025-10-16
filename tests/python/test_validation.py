@@ -45,7 +45,8 @@ def test_readme_exists():
     assert readme.exists()
     
     # Try to read it
-    content = readme.read_text()
+    # Force UTF-8 to avoid Windows codepage errors
+    content = readme.read_text(encoding="utf-8")
     assert len(content) > 0
     assert 'UNICEF' in content
 
